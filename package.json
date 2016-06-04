@@ -1,0 +1,29 @@
+{
+  "name": "potrace",
+  "version": "1.0.0",
+  "description": "Potrace in Javascript, for NodeJS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tooolbox/node-potrace.git"
+  },
+  "keywords": [
+    "potrace",
+    "trace",
+    "tracing",
+    "svg",
+    "bitmap"
+  ],
+  "author": "mattmc",
+  "license": "GPL-2.0",
+  "bugs": {
+    "url": "https://github.com/tooolbox/node-potrace/issues"
+  },
+  "homepage": "https://github.com/tooolbox/node-potrace#readme",
+  "dependencies": {
+    "jimp": "^0.2.24"
+  }
+}
