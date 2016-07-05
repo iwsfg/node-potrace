@@ -2,7 +2,7 @@
   "name": "potrace",
   "version": "1.0.0",
   "description": "Potrace in Javascript, for NodeJS",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "test": "cd test && node test"
   },
