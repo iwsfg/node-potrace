@@ -122,7 +122,7 @@ var Potrace = (function() {
       clear();
     }
     Jimp.read(target, function(err, img){
-      if (err) cb(err);
+      if (err) return cb(err);
       jimpImg = img;
 
       // create B&W bitmap
@@ -134,7 +134,7 @@ var Potrace = (function() {
         bm.data[idx/4] = (color < info.blacklevel ? 1 : 0);
       });
       info.isReady = true;
-      
+      cb(null);
     });
   }
   
