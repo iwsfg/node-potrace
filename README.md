@@ -44,16 +44,21 @@ npm install potrace
 
 Run:
 ```js
-var Potrace = require('potrace');
+var Potrace = require('potrace').Potrace;
 
-Potrace.setParameter({...});
+var tracer = new Potrace({
+    turnpolicy: TURNPOLICY_MINORITY,
+    blacklevel: 135
+});
 
-Potrace.loadImage(filePath, function(err){
-    Potrace.process(function(){
-        var svg = Potrace.getSVG(1);
-    });
+tracer.loadImage(filePath, function(err){
+    var svg = tracer.getSVG();
+    
+    // Get another SVG with different parameters
+    
+    tracer.setProperty({ blacklevel: 128 });
+    var svg2 = tracer.getSVG();
+    
+    /* ... */
 });
 ```
-
-### Todo
-Maybe refactor to improve the API a little.
