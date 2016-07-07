@@ -15,17 +15,17 @@ loadImage(file) : load image from File API or URL
  
 setParameter({para1: value, ...}) : set parameters
     parameters:
-        turnpolicy ("black" / "white" / "left" / "right" / "minority" / "majority")
+        turnPolicy ("black" / "white" / "left" / "right" / "minority" / "majority")
             how to resolve ambiguities in path decomposition. (default: "minority")       
-        turdsize
+        turdSize
             suppress speckles of up to this size (default: 2)
-        optcurve (true / false)
+        optCurve (true / false)
             turn on/off curve optimization (default: true)
-        alphamax
+        alphaMax
             corner threshold parameter (default: 1)
-        opttolerance 
+        optTolerance 
             curve optimization tolerance (default: 0.2)
-        blacklevel (0-255)
+        blackLevel (0-255)
             below this value of brightness a pixel is considered black (default: 128)
 
 process(callback) : wait for the image be loaded, then run potrace algorithm, then call callback function.
@@ -47,8 +47,8 @@ Run:
 var Potrace = require('potrace').Potrace;
 
 var tracer = new Potrace({
-    turnpolicy: TURNPOLICY_MINORITY,
-    blacklevel: 135
+    turnPolicy: TURNPOLICY_MINORITY,
+    blackLevel: 135
 });
 
 tracer.loadImage(filePath, function(err){
@@ -56,7 +56,7 @@ tracer.loadImage(filePath, function(err){
     
     // Get another SVG with different parameters
     
-    tracer.setProperty({ blacklevel: 128 });
+    tracer.setProperty({ blackLevel: 128 });
     var svg2 = tracer.getSVG();
     
     /* ... */
