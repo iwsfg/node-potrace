@@ -1,6 +1,6 @@
 'use strict';
 
-var potrace = require('../index'),
+var potrace = require('../lib/index'),
     fs = require('fs');
 
 potrace.loadImage('./yao.jpg', function(err) {
