@@ -1,6 +1,7 @@
 'use strict';
 
-var potrace = require('../lib/index'),
+var Potrace = require('../lib/index').Potrace,
+    potrace = new Potrace(),
     fs = require('fs');
 
 potrace.loadImage('./yao.jpg', function(err) {
