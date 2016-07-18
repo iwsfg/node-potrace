@@ -5,15 +5,15 @@ A NodeJS-compatible fork of [Potrace in JavaScript](https://github.com/kilobtye/
 [online demo of the browser version](http://kilobtye.github.io/potrace/)
 
 ### Motivation
-I wanted a pure JavaScript lib for tracing images, that I could use within NodeJS.  This fork of kilobtye's lib removes the browser dependency and adds an option for controlling the initial image processing (`blacklevel`).
+I wanted a pure JavaScript lib for tracing images, that I could use within NodeJS. This fork of kilobtye's lib removes the browser dependency and adds an option for controlling the initial image processing (`blacklevel`).
 
 ### Usage
 
 ```
-loadImage(file) : load image from File API or URL
+loadImage(file, callback) : load image from File API or URL
     input color/grayscale image is simply converted to binary image. no pre-process is performed.
  
-setParameter({para1: value, ...}) : set parameters
+setParameters({para1: value, ...}) : set parameters
     parameters:
         turnPolicy ("black" / "white" / "left" / "right" / "minority" / "majority")
             how to resolve ambiguities in path decomposition. (default: "minority")       
@@ -28,11 +28,7 @@ setParameter({para1: value, ...}) : set parameters
         blackLevel (0-255)
             below this value of brightness a pixel is considered black (default: 128)
 
-process(callback) : wait for the image be loaded, then run potrace algorithm, then call callback function.
-
-getSVG(size, opt_type) : return a string of generated SVG image.
-    result_image_size = original_image_size * size
-    optional parameter opt_type can be "curve"
+getSVG() : return a string of generated SVG image.
 ```
 
 ### Example
@@ -56,7 +52,7 @@ tracer.loadImage(filePath, function(err){
     
     // Get another SVG with different parameters
     
-    tracer.setProperty({ blackLevel: 128 });
+    tracer.setParameters({ blackLevel: 128 });
     var svg2 = tracer.getSVG();
     
     /* ... */
