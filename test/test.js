@@ -1,18 +1,12 @@
 'use strict';
 
-var Potrace = require('../lib/index').Potrace,
-    Posterizer = require('../lib/index').Posterizer,
-    fs = require('fs'),
-    potrace, posterize;
+var lib = require('../lib/index'),
+    fs = require('fs');
 
-potrace = new Potrace();
-potrace.loadImage('./yao.jpg', function(err) {
-  if (err) { throw err; }
-  fs.writeFileSync('./output.svg', potrace.getSVG());
+lib.trace('./yao.jpg', function(err, svg) {
+  fs.writeFileSync('./output.svg', svg);
 });
 
-posterize = new Posterizer({ blackLevel: 200, samples: 4 });
-posterize.loadImage('./yao.jpg', function(err) {
-  if (err) { throw err; }
-  fs.writeFileSync('./output-posterized.svg', posterize.getSVG());
+lib.posterize('./yao.jpg', { blackLevel: 200, samples: 4 }, function(err, svg) {
+  fs.writeFileSync('./output-posterized.svg', svg);
 });
