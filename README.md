@@ -5,7 +5,7 @@ A NodeJS-compatible fork of [Potrace in JavaScript](https://github.com/kilobtye/
 [online demo of the browser version](http://kilobtye.github.io/potrace/)
 
 ### Motivation
-I wanted a pure JavaScript lib for tracing images, that I could use within NodeJS. This fork of kilobtye's lib removes the browser dependency and adds an option for controlling the initial image processing (`blacklevel`).
+I wanted a pure JavaScript lib for tracing images, that I could use within NodeJS. This fork of kilobtye's lib removes the browser dependency and adds an option for controlling the initial image processing (`threshold`).
 
 ### Usage
 
@@ -25,7 +25,7 @@ setParameters({para1: value, ...}) : set parameters
             corner threshold parameter (default: 1)
         optTolerance 
             curve optimization tolerance (default: 0.2)
-        blackLevel (0-255)
+        threshold (0-255)
             below this value of brightness a pixel is considered black (default: 128)
 
 getSVG() : return a string of generated SVG image.
@@ -44,7 +44,7 @@ var Potrace = require('potrace').Potrace;
 
 var tracer = new Potrace({
     turnPolicy: TURNPOLICY_MINORITY,
-    blackLevel: 135
+    threshold: 135
 });
 
 tracer.loadImage(filePath, function(err){
@@ -52,7 +52,7 @@ tracer.loadImage(filePath, function(err){
     
     // Get another SVG with different parameters
     
-    tracer.setParameters({ blackLevel: 128 });
+    tracer.setParameters({ threshold: 128 });
     var svg2 = tracer.getSVG();
     
     /* ... */
