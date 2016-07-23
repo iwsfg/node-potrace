@@ -7,6 +7,6 @@ lib.trace('./yao.jpg', function(err, svg) {
   fs.writeFileSync('./output.svg', svg);
 });
 
-lib.posterize('./yao.jpg', { blackLevel: 200, samples: 4 }, function(err, svg) {
+lib.posterize('./yao.jpg', { threshold: 200, samples: 4 }, function(err, svg) {
   fs.writeFileSync('./output-posterized.svg', svg);
 });
