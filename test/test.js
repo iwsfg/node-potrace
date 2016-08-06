@@ -1,19 +1,26 @@
 'use strict';
 
-var potrace = require('../lib/index'),
+var lib = require('../lib/index'),
     fs = require('fs');
 
-potrace.loadImage('./yao.jpg', function(err) {
-  if (err) {
-    throw err;
-  }
+lib.trace('./yao.jpg', function(err, svg) {
+  if (err) { throw err; }
+  fs.writeFileSync('./output.svg', svg);
+});
 
-  potrace.process(function() {
-    fs.writeFileSync('./output-x1.svg', potrace.getSVG(1));
-    fs.writeFileSync('./output-x2.svg', potrace.getSVG(2));
-    fs.writeFileSync('./output-x0.5.svg', potrace.getSVG(0.5));
-    fs.writeFileSync('./output-x0.25.svg', potrace.getSVG(0.25));
+lib.posterize('./yao.jpg', function(err, svg) {
+  if (err) { throw err; }
+  fs.writeFileSync('./output-posterized.svg', svg);
+});
 
-    fs.writeFileSync('./output-x1-curves.svg', potrace.getSVG(1, 'curve'));
-  });
+// Generating example for readme with hand-picked thresholds
+
+lib.trace('./yao.jpg', { threshold: 128 }, function(err, svg) {
+  if (err) { throw err; }
+  fs.writeFileSync('./example-output.svg', svg);
+});
+
+lib.posterize('./yao.jpg', { steps: [50, 85, 120, 165, 220] }, function(err, svg) {
+  if (err) { throw err; }
+  fs.writeFileSync('./example-output-posterized.svg', svg);
 });
