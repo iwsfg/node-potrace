@@ -49,6 +49,12 @@ If you want to run Potrace algorithm multiple times on the same image with diffe
 potrace.posterize('./path/to/image.png', { threshold: 180, steps: 4 }, function(err, svg) {
   /*...*/
 });
+
+// or if you know exactly where you want to break it on different levels
+
+potrace.posterize('./path/to/image.png', { steps: [40, 85, 135, 180] }, function(err, svg) {
+  /*...*/
+});
 ```
 
 ### Advanced usage and configuration
@@ -105,30 +111,30 @@ Callback function provided to `loadImage` methods will be executed in context of
 new potrace.Potrace()
   .loadImage('path/to/image.bmp', function() {
     if (err) throw err;
-    this.getSymbol('foo`);
+    this.getSymbol('foo');
   });
 ```
 
-[Jimp module](jimp) is used on the back end, so first argument accepted by `loadImage` method could be anything Jimp can read: `Buffer`, local path or a url string. Supported formats are: PNG, JPEG or BMP
+[Jimp module](jimp) is used on the back end, so first argument accepted by `loadImage` method could be anything Jimp can read: a `Buffer`, local path or a url string. Supported formats are: PNG, JPEG or BMP
 
 #### Parameters
 
 `Potrace` class expects following parameters:
 
-- **turnPolicy** - how to resolve ambiguities in path decomposition. Possible values are exported as constants: `TURNPOLICY_BLACK`, `TURNPOLICY_WHITE`, `TURNPOLICY_LEFT`, `TURNPOLICY_RIGHT`, `TURNPOLICY_MINORITY`, `TURNPOLICY_MAJORITY`. Refer to [this document](potrace-algorithm) for more information (page 4)
+- **turnPolicy** - how to resolve ambiguities in path decomposition. Possible values are exported as constants: `TURNPOLICY_BLACK`, `TURNPOLICY_WHITE`, `TURNPOLICY_LEFT`, `TURNPOLICY_RIGHT`, `TURNPOLICY_MINORITY`, `TURNPOLICY_MAJORITY`. Refer to [this document](potrace-algorithm) for more information (page 4)  
   (default: `TURNPOLICY_MINORITY`)
-- **turdSize** - suppress speckles of up to this size 
+- **turdSize** - suppress speckles of up to this size   
   (default: 2)
-- **alphaMax** - corner threshold parameter 
+- **alphaMax** - corner threshold parameter   
   (default: 1)
-- **optCurve** - curve optimization 
+- **optCurve** - curve optimization   
   (default: true)
-- **optTolerance** - curve optimization tolerance 
+- **optTolerance** - curve optimization tolerance   
   (default: 0.2)
 - **threshold** - threshold below which color is considered black.
-  Should be a number in range 0..255 or `THRESHOLD_AUTO` in which case threshold will be selected automatically using [Otsu's method](otsus-method)
+  Should be a number in range 0..255 or `THRESHOLD_AUTO` in which case threshold will be selected automatically using [Otsu's method](otsus-method)  
   (default: `THRESHOLD_AUTO`)  
-- **blackOnWhite** - specifies colors by which side from threshold should be turned into vector shape
+- **blackOnWhite** - specifies colors by which side from threshold should be turned into vector shape  
   (default: `true`)  
 - **color** - Fill color. Will be ignored when exporting as \<symbol\>. (default: `COLOR_AUTO`, which means black or white, depending on `blackOnWhite` property)
 - **background** - Background color. Will be ignored when exporting as \<symbol\>. By default is not present (`COLOR_TRANSPARENT`)
@@ -136,17 +142,19 @@ new potrace.Potrace()
 `Posterizer` class has same methods as `Potrace`, in exception of `.getPathTag()`. 
 Configuration object is extended with following properties:
 
-- **steps** - Desired number of layers. By default set to `STEPS_AUTO` which will result in 3 or 4, depending on `threshold` value.
-  When bigger than 10 - additional layer could be added for darkest/brightest colors if needed to ensure presence of probably-important=at=this-point details like shadows or line art.
-  Big numbers are not recommended (see #1)
-- **fillStrategy** - determines how colors from a gradation will be selected for each layer. 
-  Possible values exported as constants: 
+- **steps** - Desired number of layers or an array of grey levels where each step should end (in range 0..255).  
+  (default: `STEPS_AUTO` which will result in 3 or 4 levels, depending on `threshold` value)  
+  Notes:  
+    - When number of steps is greater than 10 - additional layer could be added for darkest/brightest colors if needed to ensure presence of probably-important-at-this-point details like shadows or line art.
+    - If array was provided and biggest color stop in this array is greater than `threshold` parameter - `threshold` is getting ignored. Otherwise it's added to array automatically
+    - Big number of layers is not recommended, because result may end up brighter than it should   
+- **fillStrategy** - determines how colors from a gradation will be selected for each layer. Possible values exported as constants: 
     - `FILL_DOMINANT` - most popular color in range (used by default), 
     - `FILL_MEAN` - arithmetic mean (average), 
     - `FILL_MEDIAN` - median color, 
     - `FILL_SPREAD` - ignores color information of the image and just spreads colors equally in range 0..\<threshold\> (or \<threshold\>..255 if `blackOnWhite` is set to `false`),
-- **rangeDistribution** - how color stops should be spread. Possible values are:
-    - `RANGES_AUTO` - Performs automatic thresholding (using [Otsu's algorithm](otsus-method)). Works especially well with already posterized sources. Could result in lower number of steps than requested by `steps` property 
+- **rangeDistribution** - how color stops should be spread. Ignored if `steps` is array. Possible values are:
+    - `RANGES_AUTO` - Performs automatic thresholding (using [Otsu's algorithm](otsus-method)). Works especially well with already posterized sources. Could result in lower number of steps than requested by `steps` property  
       *(used by default)*
     - `RANGES_EQUAL` - Ignores color information of the image and breaks available color space into equal chunks 
     
