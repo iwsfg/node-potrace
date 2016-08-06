@@ -5,7 +5,7 @@ A NodeJS-compatible fork of [Potrace in JavaScript](potrace-by-kilobtye) with so
 
 | **Original image** | **Potrace output**           | **Posterized output**                   |
 |--------------------|------------------------------|-----------------------------------------|
-| ![](test/yao.jpg)  | ![](https://cdn.rawgit.com/Iwasawafag/node-potrace/api_changes/test/example-output.svg) | ![](https://cdn.rawgit.com/Iwasawafag/node-potrace/api_changes/test/example-output-posterized.svg) |
+| ![](test/yao.jpg)  | ![](https://cdn.rawgit.com/Iwasawafag/node-potrace/master/test/example-output.svg) | ![](https://cdn.rawgit.com/Iwasawafag/node-potrace/master/test/example-output-posterized.svg) |
 
 (Example image inherited from [online demo of the browser version](potrace-js-demo))
 
