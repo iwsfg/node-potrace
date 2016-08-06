@@ -132,7 +132,7 @@ new potrace.Potrace()
 - **optTolerance** - curve optimization tolerance   
   (default: 0.2)
 - **threshold** - threshold below which color is considered black.
-  Should be a number in range 0..255 or `THRESHOLD_AUTO` in which case threshold will be selected automatically using [Otsu's method](otsus-method)  
+  Should be a number in range 0..255 or `THRESHOLD_AUTO` in which case threshold will be selected automatically using [Algorithm For Multilevel Thresholding](multilevel-thresholding)  
   (default: `THRESHOLD_AUTO`)  
 - **blackOnWhite** - specifies colors by which side from threshold should be turned into vector shape  
   (default: `true`)  
@@ -147,14 +147,14 @@ Configuration object is extended with following properties:
   Notes:  
     - When number of steps is greater than 10 - additional layer could be added for darkest/brightest colors if needed to ensure presence of probably-important-at-this-point details like shadows or line art.
     - If array was provided and biggest color stop in this array is greater than `threshold` parameter - `threshold` is getting ignored. Otherwise it's added to array automatically
-    - Big number of layers is not recommended, because result may end up brighter than it should   
-- **fillStrategy** - determines how colors from a gradation will be selected for each layer. Possible values exported as constants: 
+    - Big number of layers is not recommended, because result may end up being brighter overall than it should due to math error during rendering. Also automatic (`rangeDistribution: Posterizer.RANGES_AUTO`) calculation of more than 4-5 color stops can take significant amount of time (minutes or hours, growing exponentially)  
+- **fillStrategy** - determines how colors from a gradation will be selected for each layer. Possible values exported as constants:  
     - `FILL_DOMINANT` - most popular color in range (used by default), 
     - `FILL_MEAN` - arithmetic mean (average), 
     - `FILL_MEDIAN` - median color, 
     - `FILL_SPREAD` - ignores color information of the image and just spreads colors equally in range 0..\<threshold\> (or \<threshold\>..255 if `blackOnWhite` is set to `false`),
 - **rangeDistribution** - how color stops should be spread. Ignored if `steps` is array. Possible values are:
-    - `RANGES_AUTO` - Performs automatic thresholding (using [Otsu's algorithm](otsus-method)). Works especially well with already posterized sources. Could result in lower number of steps than requested by `steps` property  
+    - `RANGES_AUTO` - Performs automatic thresholding (using [Algorithm For Multilevel Thresholding](multilevel-thresholding)). Works especially well with already posterized sources.  
       *(used by default)*
     - `RANGES_EQUAL` - Ignores color information of the image and breaks available color space into equal chunks 
     
@@ -169,7 +169,7 @@ The GNU General Public License version 2 (GPLv2). Please see [License File](LICE
 
 [potrace]: http://potrace.sourceforge.net/
 [potrace-algorithm]: http://potrace.sourceforge.net/potrace.pdf
-[otsus-method]: https://en.wikipedia.org/wiki/Otsu%27s_method
+[multilevel-thresholding]: http://www.iis.sinica.edu.tw/page/jise/2001/200109_01.pdf
 [potrace-by-kilobtye]: https://github.com/kilobtye/potrace
 [potrace-js-demo]: http://kilobtye.github.io/potrace/
 [jimp]: https://github.com/oliver-moran/jimp
