@@ -1,6 +1,6 @@
 {
   "name": "potrace",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "Potrace in Javascript, for NodeJS",
   "main": "lib/index.js",
   "scripts": {
@@ -15,7 +15,8 @@
     "trace",
     "tracing",
     "svg",
-    "bitmap"
+    "bitmap",
+    "posterization"
   ],
   "author": "mattmc",
   "license": "GPL-2.0",
