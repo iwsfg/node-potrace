@@ -1,5 +1,5 @@
 # node-potrace
-A NodeJS-compatible fork of [Potrace in JavaScript](potrace-by-kilobtye) with some additions, which is in turn a port of [the original Potrace](potrace) — a tool for tracing bitmaps.
+A NodeJS-compatible fork of [Potrace in JavaScript][potrace-by-kilobtye] with some additions, which is in turn a port of [the original Potrace][potrace] — a tool for tracing bitmaps.
 
 ## Example and demo
 
@@ -7,7 +7,7 @@ A NodeJS-compatible fork of [Potrace in JavaScript](potrace-by-kilobtye) with so
 |--------------------|------------------------------|-----------------------------------------|
 | ![](test/yao.jpg)  | ![](https://cdn.rawgit.com/tooolbox/node-potrace/9ee822d/test/example-output.svg) | ![](https://cdn.rawgit.com/tooolbox/node-potrace/9ee822d/test/example-output-posterized.svg) |
 
-(Example image inherited from [online demo of the browser version](potrace-js-demo))
+(Example image inherited from [online demo of the browser version][potrace-js-demo])
 
 ## Usage
 
@@ -115,13 +115,13 @@ new potrace.Potrace()
   });
 ```
 
-[Jimp module](jimp) is used on the back end, so first argument accepted by `loadImage` method could be anything Jimp can read: a `Buffer`, local path or a url string. Supported formats are: PNG, JPEG or BMP
+[Jimp module][jimp] is used on the back end, so first argument accepted by `loadImage` method could be anything Jimp can read: a `Buffer`, local path or a url string. Supported formats are: PNG, JPEG or BMP
 
 #### Parameters
 
 `Potrace` class expects following parameters:
 
-- **turnPolicy** - how to resolve ambiguities in path decomposition. Possible values are exported as constants: `TURNPOLICY_BLACK`, `TURNPOLICY_WHITE`, `TURNPOLICY_LEFT`, `TURNPOLICY_RIGHT`, `TURNPOLICY_MINORITY`, `TURNPOLICY_MAJORITY`. Refer to [this document](potrace-algorithm) for more information (page 4)  
+- **turnPolicy** - how to resolve ambiguities in path decomposition. Possible values are exported as constants: `TURNPOLICY_BLACK`, `TURNPOLICY_WHITE`, `TURNPOLICY_LEFT`, `TURNPOLICY_RIGHT`, `TURNPOLICY_MINORITY`, `TURNPOLICY_MAJORITY`. Refer to [this document][potrace-algorithm] for more information (page 4)  
   (default: `TURNPOLICY_MINORITY`)
 - **turdSize** - suppress speckles of up to this size   
   (default: 2)
@@ -132,7 +132,7 @@ new potrace.Potrace()
 - **optTolerance** - curve optimization tolerance   
   (default: 0.2)
 - **threshold** - threshold below which color is considered black.
-  Should be a number in range 0..255 or `THRESHOLD_AUTO` in which case threshold will be selected automatically using [Algorithm For Multilevel Thresholding](multilevel-thresholding)  
+  Should be a number in range 0..255 or `THRESHOLD_AUTO` in which case threshold will be selected automatically using [Algorithm For Multilevel Thresholding][multilevel-thresholding]  
   (default: `THRESHOLD_AUTO`)  
 - **blackOnWhite** - specifies colors by which side from threshold should be turned into vector shape  
   (default: `true`)  
@@ -154,14 +154,14 @@ Configuration object is extended with following properties:
     - `FILL_MEDIAN` - median color, 
     - `FILL_SPREAD` - ignores color information of the image and just spreads colors equally in range 0..\<threshold\> (or \<threshold\>..255 if `blackOnWhite` is set to `false`),
 - **rangeDistribution** - how color stops should be spread. Ignored if `steps` is array. Possible values are:
-    - `RANGES_AUTO` - Performs automatic thresholding (using [Algorithm For Multilevel Thresholding](multilevel-thresholding)). Works especially well with already posterized sources.  
+    - `RANGES_AUTO` - Performs automatic thresholding (using [Algorithm For Multilevel Thresholding][multilevel-thresholding]). Works especially well with already posterized sources.  
       *(used by default)*
     - `RANGES_EQUAL` - Ignores color information of the image and breaks available color space into equal chunks 
     
 ## Thanks to
 
-- Peter Selinger for [original Potrace tool and algorithm](potrace)
-- @kilobtye for original [javascript port](potrace-by-kilobtye)
+- Peter Selinger for [original Potrace tool and algorithm][potrace]
+- @kilobtye for original [javascript port][potrace-by-kilobtye]
 
 ## License
 
