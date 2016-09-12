@@ -3,9 +3,9 @@ A NodeJS-compatible fork of [Potrace in JavaScript][potrace-by-kilobtye] with so
 
 ## Example and demo
 
-| **Original image** | **Potrace output**           | **Posterized output**                   |
-|--------------------|------------------------------|-----------------------------------------|
-| ![](test/yao.jpg)  | ![](https://cdn.rawgit.com/tooolbox/node-potrace/9ee822d/test/example-output.svg) | ![](https://cdn.rawgit.com/tooolbox/node-potrace/9ee822d/test/example-output-posterized.svg) |
+| **Original image**        | **Potrace output**           | **Posterized output**                   |
+|---------------------------|------------------------------|-----------------------------------------|
+| ![](test/sources/yao.jpg) | ![](https://cdn.rawgit.com/tooolbox/node-potrace/9ee822d/test/example-output.svg) | ![](https://cdn.rawgit.com/tooolbox/node-potrace/9ee822d/test/example-output-posterized.svg) |
 
 (Example image inherited from [online demo of the browser version][potrace-js-demo])
 

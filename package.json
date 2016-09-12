@@ -4,7 +4,7 @@
   "description": "Potrace in Javascript, for NodeJS",
   "main": "lib/index.js",
   "scripts": {
-    "test": "cd test && node test"
+    "test": "cd test && mocha test.js --reporter spec"
   },
   "repository": {
     "type": "git",
@@ -26,5 +26,12 @@
   "homepage": "https://github.com/tooolbox/node-potrace#readme",
   "dependencies": {
     "jimp": "^0.2.24"
+  },
+  "devDependencies": {
+    "lodash": "^4.15.0",
+    "mocha": "^3.0.2",
+    "should": "^11.1.0",
+    "should-sinon": "0.0.5",
+    "sinon": "^1.17.5"
   }
 }
