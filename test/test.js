@@ -461,6 +461,15 @@ describe('Posterizer class', function() {
       });
 
       getColorStops().should.be.deepEqual([155, 180, 205, 230]);
+
+      posterizer.setParameters({
+        rangeDistribution: Posterizer.RANGES_EQUAL,
+        threshold: Potrace.THRESHOLD_AUTO,
+        steps: 4,
+        blackOnWhite: true
+      });
+
+      getColorStops().should.be.deepEqual([206, 154.5, 103, 51.5]);
     });
 
     it('returns correctly calculated color stops with "auto" distribution', function() {
@@ -470,6 +479,10 @@ describe('Posterizer class', function() {
         steps: 3,
         blackOnWhite: true
       });
+
+      console.log(getColorStops());
+      console.log(posterizer._getImageHistogram().autoThreshold());
+      console.log(posterizer._getImageHistogram().multilevelThresholding(2));
 
       getColorStops().should.be.deepEqual([219, 156, 71]);
 
