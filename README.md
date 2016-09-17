@@ -115,9 +115,9 @@ new potrace.Potrace()
   });
 ```
 
-[Jimp module][jimp] is used on the back end, so first argument accepted by `loadImage` method could be anything Jimp can read: a `Buffer`, local path or a url string. Supported formats are: PNG, JPEG or BMP
+[Jimp module][jimp] is used on the back end, so first argument accepted by `loadImage` method could be anything Jimp can read: a `Buffer`, local path or a url string. Supported formats are: PNG, JPEG or BMP. It also could be a Jimp instance (provided bitmap is not modified)
 
-#### Parameters
+### Parameters
 
 `Potrace` class expects following parameters:
 
@@ -139,25 +139,32 @@ new potrace.Potrace()
 - **color** - Fill color. Will be ignored when exporting as \<symbol\>. (default: `COLOR_AUTO`, which means black or white, depending on `blackOnWhite` property)
 - **background** - Background color. Will be ignored when exporting as \<symbol\>. By default is not present (`COLOR_TRANSPARENT`)
 
+---------------
+
 `Posterizer` class has same methods as `Potrace`, in exception of `.getPathTag()`. 
 Configuration object is extended with following properties:
 
-- **steps** - Desired number of layers or an array of grey levels where each step should end (in range 0..255).  
-  (default: `STEPS_AUTO` which will result in 3 or 4 levels, depending on `threshold` value)  
-  Notes:  
-    - When number of steps is greater than 10 - additional layer could be added for darkest/brightest colors if needed to ensure presence of probably-important-at-this-point details like shadows or line art.
-    - If array was provided and biggest color stop in this array is greater than `threshold` parameter - `threshold` is getting ignored. Otherwise it's added to array automatically
-    - Big number of layers is not recommended, because result may end up being brighter overall than it should due to math error during rendering. Also automatic (`rangeDistribution: Posterizer.RANGES_AUTO`) calculation of more than 4-5 color stops can take significant amount of time (minutes or hours, growing exponentially)  
-- **fillStrategy** - determines how colors from a gradation will be selected for each layer. Possible values exported as constants:  
-    - `FILL_DOMINANT` - most popular color in range (used by default), 
+- **fillStrategy** - determines how fill color for each layer should be selected. Possible values are exported as constants:  
+    - `FILL_DOMINANT` - most frequent color in range (used by default), 
     - `FILL_MEAN` - arithmetic mean (average), 
     - `FILL_MEDIAN` - median color, 
     - `FILL_SPREAD` - ignores color information of the image and just spreads colors equally in range 0..\<threshold\> (or \<threshold\>..255 if `blackOnWhite` is set to `false`),
-- **rangeDistribution** - how color stops should be spread. Ignored if `steps` is array. Possible values are:
-    - `RANGES_AUTO` - Performs automatic thresholding (using [Algorithm For Multilevel Thresholding][multilevel-thresholding]). Works especially well with already posterized sources.  
+- **rangeDistribution** - how color stops for each layer should be selected. Ignored if `steps` is an array. Possible values are:
+    - `RANGES_AUTO` - Performs automatic thresholding (using [Algorithm For Multilevel Thresholding][multilevel-thresholding]). Preferable method for already posterized sources, but takes long time to calculate 5 or more thresholds (exponential time complexity)  
       *(used by default)*
-    - `RANGES_EQUAL` - Ignores color information of the image and breaks available color space into equal chunks 
-    
+    - `RANGES_EQUAL` - Ignores color information of the image and breaks available color space into equal chunks
+- **steps** - Specifies desired number of layers in resulting image. If a number provided - thresholds for each layer will be automatically calculated according to `rangeDistribution` parameter. If an array provided it expected to be an array with precomputed thresholds for each layer (in range 0..255)  
+  (default: `STEPS_AUTO` which will result in `3` or `4`, depending on `threshold` value)
+- **threshold** - Breaks image into foreground and background (and only foreground being broken into desired number of layers). Basically when provided it becomes a threshold for last (least opaque) layer and then `steps - 1` intermediate thresholds calculated. If **steps** is an array of thresholds and every value from the array is lower (or larger if **blackOnWhite** parameter set to `false`) than threshold - threshold will be added to the array, otherwise just ignored.  
+  (default: `Potrace.THRESHOLD_AUTO`)
+- *all other parameters that Potrace class accepts*
+
+**Notes:**
+
+- When number of `steps` is greater than 10 - an extra layer could be added to ensure presence of darkest/brightest colors if needed to ensure presence of probably-important-at-this-point details like shadows or line art.
+- With big number of layers produced image will be looking brighter overall than original due to math error at the rendering phase because of how layers are composited.
+- With default configuration `steps`, `threshold` and `rangeDistribution` settings all set to auto, resulting in a 4 thresholds/color stops being calculated with Multilevel Thresholding algorithm mentioned above. Calculation of 4 thresholds takes 3-5 seconds on average laptop. You may want to explicitly limit number of `steps` to 3 to moderately improve processing speed.  
+
 ## Thanks to
 
 - Peter Selinger for [original Potrace tool and algorithm][potrace]
