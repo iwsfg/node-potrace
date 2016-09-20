@@ -28,6 +28,8 @@ describe('Histogram class (private, responsible for auto thresholding)', functio
   var whiteHistogram = new Histogram(whiteImage, Histogram.MODE_LUMINANCE);
 
   before(function(done) {
+    this.timeout(10000);
+
     Jimp.read(PATH_TO_LENNA, function(err, img) {
       if (err) throw err;
       histogram = new Histogram(img, Histogram.MODE_LUMINANCE);
@@ -479,10 +481,6 @@ describe('Posterizer class', function() {
         steps: 3,
         blackOnWhite: true
       });
-
-      console.log(getColorStops());
-      console.log(posterizer._getImageHistogram().autoThreshold());
-      console.log(posterizer._getImageHistogram().multilevelThresholding(2));
 
       getColorStops().should.be.deepEqual([219, 156, 71]);
 
