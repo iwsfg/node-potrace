@@ -1,6 +1,6 @@
 {
   "name": "potrace",
-  "version": "2.0.1",
+  "version": "2.1.1",
   "description": "Potrace in Javascript, for NodeJS",
   "main": "lib/index.js",
   "scripts": {
