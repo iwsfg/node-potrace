@@ -35,6 +35,7 @@ You can also provide a configuration object as a second argument.
 var params = {
   background: '#49ffd2',
   color: 'blue',
+  outline: 'red',
   threshold: 120
 };
 
@@ -138,7 +139,7 @@ new potrace.Potrace()
   (default: `true`)  
 - **color** - Fill color. Will be ignored when exporting as \<symbol\>. (default: `COLOR_AUTO`, which means black or white, depending on `blackOnWhite` property)
 - **background** - Background color. Will be ignored when exporting as \<symbol\>. By default is not present (`COLOR_TRANSPARENT`) 
-- **outline** - Border color. (default: `NONE`)
+- **outline** - Border color. (default: `VALUE_NONE`, which means `none`)
 
 ---------------
 
