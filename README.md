@@ -14,7 +14,7 @@ A NodeJS-compatible fork of [Potrace in JavaScript][potrace-by-kilobtye] with so
 Install
 
 ```sh
-npm install potrace
+npm install https://github.com/talyguryn/node-potrace
 ```
 
 Basic usage
