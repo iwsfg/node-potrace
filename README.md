@@ -137,7 +137,8 @@ new potrace.Potrace()
 - **blackOnWhite** - specifies colors by which side from threshold should be turned into vector shape  
   (default: `true`)  
 - **color** - Fill color. Will be ignored when exporting as \<symbol\>. (default: `COLOR_AUTO`, which means black or white, depending on `blackOnWhite` property)
-- **background** - Background color. Will be ignored when exporting as \<symbol\>. By default is not present (`COLOR_TRANSPARENT`)
+- **background** - Background color. Will be ignored when exporting as \<symbol\>. By default is not present (`COLOR_TRANSPARENT`) 
+- **outline** - Border color. (default: `NONE`)
 
 ---------------
 
