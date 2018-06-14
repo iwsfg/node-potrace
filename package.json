@@ -1,6 +1,6 @@
 {
   "name": "potrace",
-  "version": "2.1.1",
+  "version": "2.2.1",
   "description": "Potrace in Javascript, for NodeJS",
   "main": "lib/index.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tooolbox/node-potrace.git"
+    "url": "git+https://github.com/stickerum/node-potrace.git"
   },
   "keywords": [
     "potrace",
@@ -21,9 +21,9 @@
   "author": "mattmc",
   "license": "GPL-2.0",
   "bugs": {
-    "url": "https://github.com/tooolbox/node-potrace/issues"
+    "url": "https://github.com/stickerum/node-potrace/issues"
   },
-  "homepage": "https://github.com/tooolbox/node-potrace#readme",
+  "homepage": "https://github.com/stickerum/node-potrace#readme",
   "dependencies": {
     "jimp": "^0.2.24"
   },
