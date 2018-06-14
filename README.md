@@ -2,8 +2,7 @@
 
 A NodeJS-compatible fork of [Potrace in JavaScript][potrace-by-kilobtye] with some additions, which is in turn a port of [the original Potrace][potrace] — a tool for tracing bitmaps.
 
-> This version of node-potrace supports setting up the color of an image border (stroke).
-> You can get a coloured single line as a contour of image.
+> This version of node-potrace supports setting up the color of an image border (stroke). You can get a coloured single line as a contour of image.
 
 ## Example and demo
 
@@ -37,9 +36,16 @@ You can also provide a configuration object as a second argument.
 
 ```js
 var params = {
+  /** Background color for a whole image */
   background: '#49ffd2',
+
+  /** Foreground color of traced image */
   color: 'blue',
+
+  /** Color of traced image's border */
   outline: 'red',
+
+  /** Below which color is considered black (0..255) */
   threshold: 120
 };
 
