@@ -1,5 +1,9 @@
 # node-potrace
+
 A NodeJS-compatible fork of [Potrace in JavaScript][potrace-by-kilobtye] with some additions, which is in turn a port of [the original Potrace][potrace] — a tool for tracing bitmaps.
+
+> This version of node-potrace supports setting up the color of an image border (stroke).
+> You can get a coloured single line as a contour of image.
 
 ## Example and demo
 
@@ -14,7 +18,7 @@ A NodeJS-compatible fork of [Potrace in JavaScript][potrace-by-kilobtye] with so
 Install
 
 ```sh
-npm install https://github.com/talyguryn/node-potrace
+npm install --save https://github.com/stickerum/node-potrace
 ```
 
 Basic usage
@@ -60,7 +64,7 @@ potrace.posterize('./path/to/image.png', { steps: [40, 85, 135, 180] }, function
 
 ### Advanced usage and configuration
 
-Both `trace` and `posterize` methods return instances of `Potrace` and `Posterizer` classes respectively to a callback function as third argument. 
+Both `trace` and `posterize` methods return instances of `Potrace` and `Posterizer` classes respectively to a callback function as third argument.
 
 You can also instantiate these classes directly:
 
@@ -91,7 +95,7 @@ var posterizer = new potrace.Posterize();
 
 posterizer.loadImage('path/to/image.png', function(err) {
   if (err) throw err;
-  
+
   posterizer.setParameter({
     color: '#ccc',
     background: '#222',
@@ -99,7 +103,7 @@ posterizer.loadImage('path/to/image.png', function(err) {
     threshold: 200,
     fillStrategy: potrace.Posterize.FILL_MEAN
   });
-  
+
   posterizer.getSVG();
   // or
   posterizer.getSymbol('posterized-image');
@@ -138,18 +142,18 @@ new potrace.Potrace()
 - **blackOnWhite** - specifies colors by which side from threshold should be turned into vector shape  
   (default: `true`)  
 - **color** - Fill color. Will be ignored when exporting as \<symbol\>. (default: `COLOR_AUTO`, which means black or white, depending on `blackOnWhite` property)
-- **background** - Background color. Will be ignored when exporting as \<symbol\>. By default is not present (`COLOR_TRANSPARENT`) 
+- **background** - Background color. Will be ignored when exporting as \<symbol\>. By default is not present (`COLOR_TRANSPARENT`)
 - **outline** - Border color. (default: `VALUE_NONE`, which means `none`)
 
 ---------------
 
-`Posterizer` class has same methods as `Potrace`, in exception of `.getPathTag()`. 
+`Posterizer` class has same methods as `Potrace`, in exception of `.getPathTag()`.
 Configuration object is extended with following properties:
 
 - **fillStrategy** - determines how fill color for each layer should be selected. Possible values are exported as constants:  
-    - `FILL_DOMINANT` - most frequent color in range (used by default), 
-    - `FILL_MEAN` - arithmetic mean (average), 
-    - `FILL_MEDIAN` - median color, 
+    - `FILL_DOMINANT` - most frequent color in range (used by default),
+    - `FILL_MEAN` - arithmetic mean (average),
+    - `FILL_MEDIAN` - median color,
     - `FILL_SPREAD` - ignores color information of the image and just spreads colors equally in range 0..\<threshold\> (or \<threshold\>..255 if `blackOnWhite` is set to `false`),
 - **rangeDistribution** - how color stops for each layer should be selected. Ignored if `steps` is an array. Possible values are:
     - `RANGES_AUTO` - Performs automatic thresholding (using [Algorithm For Multilevel Thresholding][multilevel-thresholding]). Preferable method for already posterized sources, but takes long time to calculate 5 or more thresholds (exponential time complexity)  
