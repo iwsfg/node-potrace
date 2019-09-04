@@ -19,7 +19,7 @@
     "posterization"
   ],
   "author": "mattmc",
-  "license": "GPL-2.0",
+  "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/tooolbox/node-potrace/issues"
   },
