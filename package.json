@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/tooolbox/node-potrace#readme",
   "dependencies": {
-    "jimp": "^0.6.4"
+    "jimp": ">=0.9.6 <1"
   },
   "devDependencies": {
     "lodash": "^4.15.0",
